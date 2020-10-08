@@ -4,7 +4,33 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+const likeHandler = (like) => {
+  const likeBtn = like.querySelector('.like-glyph')
+  mimicServerCall("http://mimicServer.example.com")
+  .then(success => {
+    console.log(success)
+    if (likeBtn.textContent === '♡') {
+      likeBtn.textContent = FULL_HEART
+    } else {
+      likeBtn.textContent = EMPTY_HEART
+    }
+  })
 
+  .catch(error => {
+    const modal = document.querySelector('#modal')
+    modal.classList.remove('hidden')
+    modal.textContent = error
+    setTimeout(function(){
+      modal.classList.add('hidden')
+    }, 5000)
+  })
+}
+
+document.addEventListener("click", e => {
+  if(e.target.matches('.like')) {
+    likeHandler(e.target)
+  }
+})
 
 
 //------------------------------------------------------------------------------
@@ -21,5 +47,6 @@ function mimicServerCall(url="http://mimicServer.example.com", config={}) {
         resolve("Pretend remote server notified of action!");
       }
     }, 300);
-  });
+  })
 }
+
