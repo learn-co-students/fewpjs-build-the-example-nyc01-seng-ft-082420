@@ -16,10 +16,11 @@ function clickHandler() {
       } else {
         mimicServerCall()
         .then(response => {
-          if (response === "Pretend remote server notified of action!"){
-            e.target.classList.add('activated-heart')
-            e.target.dataset.liked = "true"
-          } else {}
+          e.target.classList.add('activated-heart')
+          e.target.dataset.liked = "true"
+        })
+        .catch(error => {
+          alert("Something Went Wrong!")
         })
 
       }
